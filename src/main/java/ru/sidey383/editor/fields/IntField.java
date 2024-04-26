@@ -43,7 +43,7 @@ public class IntField extends JFormattedTextField {
                 textFieldUpdate();
             }
         });
-        addActionListener(this::updateField);
+        addActionListener((a) -> this.textFieldUpdate());
     }
 
     public static IntField createIntField(int value, int min, int max, IntConsumer applyValue) {
@@ -52,10 +52,6 @@ public class IntField extends JFormattedTextField {
         numberFormat.setGroupingUsed(false);
         numberFormat.setMaximumIntegerDigits(4);
         return new IntField(numberFormat, value, min, max, applyValue);
-    }
-
-    private void updateField(ActionEvent e) {
-        textFieldUpdate();
     }
 
     private void textFieldUpdate() {

@@ -142,14 +142,6 @@ public class BSplineDrawPanel extends JPanel {
         repaint();
     }
 
-    public void setCenterX(double centerX) {
-        this.centerX = centerX;
-    }
-
-    public void setCenterY(double centerY) {
-        this.centerY = centerY;
-    }
-
     public void setCenter(double x, double y) {
         this.centerX = x;
         this.centerY = y;

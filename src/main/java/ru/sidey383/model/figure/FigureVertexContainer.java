@@ -57,21 +57,6 @@ public class FigureVertexContainer implements LinesSupplier {
     }
 
     @Override
-    public void forEach(Consumer<Vector> v) {
-        for (int rot = 0; rot < m1 * m; rot++) {
-            if (rot % m1 == 0) {
-                for (int i = 0; i <= partCount * partSize; i++) {
-                    v.accept(getValue(rot, i));
-                }
-            } else {
-                for (int i = 0; i <= partCount; i++) {
-                    v.accept(getValue(rot, i));
-                }
-            }
-        }
-    }
-
-    @Override
     public List<Pair<Vector>> createLines(Matrix transformation) {
         return applyMatrix(transformation).createLines();
     }

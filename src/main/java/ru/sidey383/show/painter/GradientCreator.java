@@ -2,7 +2,6 @@ package ru.sidey383.show.painter;
 
 import java.awt.*;
 import java.util.Arrays;
-import java.util.Collection;
 
 public class GradientCreator {
     private final double min;

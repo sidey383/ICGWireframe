@@ -3,7 +3,6 @@ package ru.sidey383.editor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import ru.sidey383.model.data.FigureInfo;
-import ru.sidey383.model.data.PointRecord;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -160,16 +159,6 @@ public class EditedFigure implements FigureInfo<EditedFigure.Point> {
         public Point(ru.sidey383.model.data.Point p) {
             this.x = p.x();
             this.y = p.y();
-        }
-
-        public void x(double x) {
-            this.x = x;
-            splineUpdate.run();
-        }
-
-        public void y(double y) {
-            this.y = y;
-            splineUpdate.run();
         }
 
         public void set(double x, double y) {

@@ -14,17 +14,6 @@ public record VectorRecord(double... values) implements Vector {
     }
 
     @Override
-    public Vector resize(int size, Double... modifications) {
-        double[] newValues = Arrays.copyOf(values, size);
-        for (int i = 0; i < modifications.length; i++) {
-            if (modifications[i] == null)
-                continue;
-            newValues[i] = modifications[i];
-        }
-        return new VectorRecord(newValues);
-    }
-
-    @Override
     public String toString() {
         return "VectorRecord{" +
                "values=" + Arrays.toString(values) +

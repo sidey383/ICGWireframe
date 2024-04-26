@@ -29,8 +29,4 @@ class TVector implements Vector {
         };
     }
 
-    @Override
-    public Vector resize(int size, Double... values) {
-        throw new UnsupportedOperationException("Can't resize dynamic TVector");
-    }
 }
