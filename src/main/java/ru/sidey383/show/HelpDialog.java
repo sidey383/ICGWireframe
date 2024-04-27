@@ -31,8 +31,8 @@ public class HelpDialog extends JDialog {
     }
 
     private void setSizeAndPosition() {
-        setMinimumSize(new Dimension(300, 200));
-        setPreferredSize(new Dimension(400, 300));
+        setMinimumSize(new Dimension(400, 500));
+        setPreferredSize(new Dimension(400, 500));
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(screenSize.width / 2 - 400, screenSize.height / 2 - 400);
     }
