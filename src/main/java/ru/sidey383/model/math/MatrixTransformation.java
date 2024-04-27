@@ -1,9 +1,12 @@
 package ru.sidey383.model.math;
 
+import lombok.Getter;
+
 public enum MatrixTransformation {
     X(1, 2, -1), Y(0, 2, 1), Z(0, 1, -1);
 
-    private static final Matrix noTransformation = createTranspoitionMatrix(0, 0, 0);
+    @Getter
+    private static final Matrix noTransformation = getTransposition(0, 0, 0);
 
     private final int firstAxis;
     private final int secondAxis;
@@ -30,7 +33,7 @@ public enum MatrixTransformation {
         return new MatrixRecord(values);
     }
 
-    public static Matrix createTranspoitionMatrix(double x, double y, double z) {
+    public static Matrix getTransposition(double x, double y, double z) {
         double[][] values = new double[4][4];
         for (int i = 0; i < 4; i++) {
             values[i][i] = 1;
@@ -39,10 +42,6 @@ public enum MatrixTransformation {
         values[1][3] = y;
         values[2][3] = z;
         return new MatrixRecord(values);
-    }
-
-    public static Matrix createTranspoitionMatrix() {
-        return noTransformation;
     }
 
 }

@@ -3,7 +3,6 @@ package ru.sidey383.editor;
 import ru.sidey383.model.data.FigureInfo;
 import ru.sidey383.model.data.FigureInfoRecord;
 import ru.sidey383.model.data.Point;
-import ru.sidey383.model.data.PointRecord;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +11,7 @@ import java.util.function.Consumer;
 
 public class FigureEditorPanel extends JPanel implements FigureEditor {
 
-    private final Consumer<FigureInfo<PointRecord>> applyCallback;
+    private final Consumer<FigureInfoRecord> applyCallback;
 
     private final BSplineDrawPanel bSplineDrawPanel;
 
@@ -20,7 +19,7 @@ public class FigureEditorPanel extends JPanel implements FigureEditor {
 
     private final EditedFigure editedFigure;
 
-    public FigureEditorPanel(Consumer<FigureInfo<PointRecord>> applyCallback, FigureInfo<?> figureInfo, Runnable closeSelf) {
+    public FigureEditorPanel(Consumer<FigureInfoRecord> applyCallback, FigureInfo<?> figureInfo, Runnable closeSelf) {
         this.applyCallback = applyCallback;
         setLayout(new BorderLayout());
         editedFigure = new EditedFigure(figureInfo, this::onSplineUpdate, this::onViewUpdate);
@@ -46,7 +45,7 @@ public class FigureEditorPanel extends JPanel implements FigureEditor {
     }
 
     private void applySpline() {
-        FigureInfo<PointRecord> info = new FigureInfoRecord(editedFigure);
+        FigureInfoRecord info = new FigureInfoRecord(editedFigure);
         applyCallback.accept(info);
     }
 
@@ -73,7 +72,7 @@ public class FigureEditorPanel extends JPanel implements FigureEditor {
         double yMax = Math.max(Double.MIN_NORMAL, yStat.getMax());
         double yScale = height / ((yMax - yMin) * 1.2);
         bSplineDrawPanel.setScale(Math.min(xScale, yScale));
-        bSplineDrawPanel.setCenter(xStat.getAverage(), (yMax + yMin) / 2);
+        bSplineDrawPanel.setCenter((xStat.getMax() + xStat.getMin()) / 2, (yMax + yMin) / 2);
     }
 
 }

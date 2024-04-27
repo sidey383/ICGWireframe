@@ -44,6 +44,13 @@ public class EditedFigure implements FigureInfo<EditedFigure.Point> {
         splineUpdate.run();
     }
 
+    public void addPoint(double x, double y) {
+        Point p = new Point(x, y);
+        points.add(p);
+        selected = p;
+        splineUpdate.run();
+    }
+
     public void removePoint(Point point) {
         if (points.size() <= 4)
             throw new IllegalStateException("There must be at least 4 points");
@@ -151,12 +158,12 @@ public class EditedFigure implements FigureInfo<EditedFigure.Point> {
 
         private double y;
 
-        public Point(double x, double y) {
+        private Point(double x, double y) {
             this.x = x;
             this.y = y;
         }
 
-        public Point(ru.sidey383.model.data.Point p) {
+        private Point(ru.sidey383.model.data.Point p) {
             this.x = p.x();
             this.y = p.y();
         }

@@ -1,5 +1,6 @@
 package ru.sidey383.show;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.sidey383.model.math.Matrix;
@@ -10,6 +11,7 @@ import ru.sidey383.show.painter.LinesPainter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 public class ShowFrame<T extends LinesPainter> extends JPanel {
 
@@ -18,7 +20,8 @@ public class ShowFrame<T extends LinesPainter> extends JPanel {
 
     private final AxisPainter axisPainter = new AxisPainter(80);
 
-    @Nullable
+    @Getter
+    @NotNull
     private Matrix rotation;
 
     @NotNull
@@ -26,7 +29,7 @@ public class ShowFrame<T extends LinesPainter> extends JPanel {
 
     public ShowFrame(@NotNull T painter) {
         this.painter = painter;
-        this.rotation = MatrixTransformation.createTranspoitionMatrix();
+        this.rotation = MatrixTransformation.getNoTransformation();
         setBackground(Color.WHITE);
     }
 
@@ -36,13 +39,11 @@ public class ShowFrame<T extends LinesPainter> extends JPanel {
     }
 
     public void setRotation(@Nullable Matrix rotation) {
-        this.rotation = rotation;
+        this.rotation = Objects.requireNonNullElseGet(rotation, MatrixTransformation::getNoTransformation);
         repaint();
     }
 
     public void addTransformation(@NotNull Matrix rotation) {
-        if (this.rotation == null)
-            return;
         this.rotation = rotation.multiply(this.rotation);
         repaint();
     }
@@ -62,7 +63,7 @@ public class ShowFrame<T extends LinesPainter> extends JPanel {
     }
 
     private void drawFigure(Graphics g, int width, int height) {
-        if (linesSupplier == null || rotation == null)
+        if (linesSupplier == null)
             return;
         if (g instanceof  Graphics2D g2) {
             painter.createImage(linesSupplier, rotation, g2, width, height);

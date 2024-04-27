@@ -19,4 +19,5 @@ public record VectorRecord(double... values) implements Vector {
                "values=" + Arrays.toString(values) +
                '}';
     }
+
 }

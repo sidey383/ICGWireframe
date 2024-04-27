@@ -14,7 +14,7 @@ import java.util.List;
 public class PerspectiveLinesPainter implements LinesPainter {
 
 
-    private final Matrix cameraMoveMatrix = MatrixTransformation.createTranspoitionMatrix(0, 0, 8);
+    private final Matrix cameraMoveMatrix = MatrixTransformation.getTransposition(0, 0, 8);
 
     private PerspectiveProjectionMatrix projection;
 

@@ -11,7 +11,7 @@ public class AxisPainter {
     private final int axisSize;
 
     private final PerspectiveProjectionMatrix projection = new PerspectiveProjectionMatrix(Math.PI / 8, 1, 5, 20).addBefore(
-            MatrixTransformation.createTranspoitionMatrix(0, 0, 10)
+            MatrixTransformation.getTransposition(0, 0, 10)
     );
 
     private final Pair<Vector> xAxis = new Pair<>(new VectorRecord(0, 0, 0, 1), new VectorRecord(1, 0, 0, 1));

@@ -7,8 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 /**
- * ЛКМ - двигать (точку или себя)
- * ПКМ - удалить точку
+ * ЛКМ - двигать (точку или себя), выбрать точку
+ * ПКМ - добавить точку
+ * Shift + ЛКМ - Двигать фигуру
+ * Shift + ПКМ - удалить точку
  **/
 public class BSplinePanelInteractions extends MouseAdapter {
 
@@ -33,37 +35,6 @@ public class BSplinePanelInteractions extends MouseAdapter {
 
     public BSplinePanelInteractions(BSplineDrawPanel bSplineDrawPanel) {
         this.bSplineDrawPanel = bSplineDrawPanel;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        EditedFigure.Point clicked = null;
-        int circleDistanceSquare = bSplineDrawPanel.getCircleSize();
-        circleDistanceSquare = circleDistanceSquare * circleDistanceSquare;
-        for (EditedFigure.Point p : bSplineDrawPanel.getEditedFigure().points()) {
-            if (distanceSquare(p, e.getX(), e.getY()) < circleDistanceSquare) {
-                clicked = p;
-            }
-        }
-        if (clicked != null) {
-            switch (e.getButton()) {
-                case MouseEvent.BUTTON1 -> bSplineDrawPanel.getEditedFigure().setSelected(clicked);
-                case MouseEvent.BUTTON3 -> {
-                    try {
-                        bSplineDrawPanel.getEditedFigure().removePoint(clicked);
-                    } catch (IllegalStateException ex) {
-                        cantRemoveDotDialog.show();
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        super.mouseWheelMoved(e);
-        bSplineDrawPanel.setScale(bSplineDrawPanel.getScale() - e.getWheelRotation() * 4);
-        updateMousePose(e.getX(), e.getY());
     }
 
     @Override
@@ -93,17 +64,32 @@ public class BSplinePanelInteractions extends MouseAdapter {
                 }
             }
             case MouseEvent.BUTTON3 -> {
-                if (clicked != null) {
-                    try {
-                        bSplineDrawPanel.getEditedFigure().removePoint(clicked);
-                    } catch (IllegalStateException ex) {
-                        cantRemoveDotDialog.show();
+                if (e.isShiftDown()) {
+                    if (clicked != null) {
+                        try {
+                            bSplineDrawPanel.getEditedFigure().removePoint(clicked);
+                        } catch (IllegalStateException ex) {
+                            cantRemoveDotDialog.show();
+                        }
                     }
+                } else {
+                    bSplineDrawPanel.getEditedFigure().addPoint(
+                            bSplineDrawPanel.getPointX(e.getX()),
+                            bSplineDrawPanel.getPointY(e.getY())
+                    );
                 }
             }
         }
         lastX = e.getX();
         lastY = e.getY();
+    }
+
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        super.mouseWheelMoved(e);
+        bSplineDrawPanel.setScale(bSplineDrawPanel.getScale() - e.getWheelRotation() * 4);
+        updateMousePose(e.getX(), e.getY());
     }
 
     @Override
